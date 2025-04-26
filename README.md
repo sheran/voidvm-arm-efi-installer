@@ -39,6 +39,12 @@ Fetch and run the script inside a Void Linux live session:
 curl -fsSL http://your-server-address/setup.sh | sh
 ```
 
+or directly from GitHub:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/sheran/voidvm-arm-efi-installer/refs/heads/master/setup.sh | sh
+```
+
 or clone and run:
 
 ```bash
