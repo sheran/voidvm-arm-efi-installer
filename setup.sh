@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/bash
 
 set -e 
 
@@ -41,7 +41,7 @@ xgenfstab /mnt > /mnt/etc/fstab
 
 UUID=$(blkid -o value -s UUID "${DISK}2")
 
-xchroot /mnt /bin/sh <<EOF
+xchroot /mnt /usr/bin/bash <<EOF
 set -e
 
 DISK="$DISK"
