@@ -2,8 +2,8 @@
 
 set -e 
 
-DISK="/dev/vda"
-CRYPT_PASSWORD="password"
+: "${DISK:=/dev/vda}"
+: "${CRYPT_PASSWORD:=password}"
 
 xbps-install -Sy parted
 parted -s "$DISK" mklabel gpt
@@ -35,7 +35,7 @@ mount "${DISK}1" /mnt/boot/efi
 
 mkdir -p /mnt/var/db/xbps/keys
 cp /var/db/xbps/keys/* /mnt/var/db/xbps/keys/
-xbps-install -Sy -R https://repo-default.voidlinux.org/current/aarch64 -r /mnt base-system cryptsetup grub-arm64-efi lvm2 dracut linux-6.12_1
+xbps-install -Sy -R https://repo-default.voidlinux.org/current/aarch64 -r /mnt base-system cryptsetup grub-arm64-efi lvm2 dracut linux-6.12_1 curl
 
 xgenfstab /mnt > /mnt/etc/fstab
 
@@ -77,3 +77,4 @@ echo 'install_items+=" /boot/volume.key /etc/crypttab "' > /etc/dracut.conf.d/10
 grub-install ${DISK}
 xbps-reconfigure -fa
 EOF
+
