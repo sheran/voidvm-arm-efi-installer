@@ -35,7 +35,7 @@ mount "${DISK}1" /mnt/boot/efi
 
 mkdir -p /mnt/var/db/xbps/keys
 cp /var/db/xbps/keys/* /mnt/var/db/xbps/keys/
-xbps-install -Sy -R https://repo-default.voidlinux.org/current/aarch64 -r /mnt base-system cryptsetup grub-arm64-efi lvm2 dracut linux-6.12_1 curl
+xbps-install -Sy -R https://repo-default.voidlinux.org/current/aarch64 -r /mnt base-system cryptsetup grub-arm64-efi lvm2 dracut linux curl
 
 xgenfstab /mnt > /mnt/etc/fstab
 
@@ -74,6 +74,10 @@ chmod -R g-rwx,o-rwx /boot
 echo "voidvm \${DISK}2 /boot/volume.key luks" >> /etc/crypttab
 
 echo 'install_items+=" /boot/volume.key /etc/crypttab "' > /etc/dracut.conf.d/10-crypt.conf
+
+ln -s /etc/sv/dhcpcd /etc/runit/runsvdir/default/
+ln -s /etc/sv/sshd /etc/runit/runsvdir/default/
+
 grub-install ${DISK}
 xbps-reconfigure -fa
 EOF
